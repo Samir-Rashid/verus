@@ -18,17 +18,17 @@
           z3_4_12
       ];
       shellHook = ''
-	      fish
-	      cd source/
-	      source ../tools/activate.fish
-	      set VERUS_Z3_PATH $(which z3)
-	      ln -sf $(which z3) ./z3
+	      # fish
+	      # cd source/
+	      # source ../tools/activate.fish
+	      # set VERUS_Z3_PATH $(which z3)
+	      # ln -sf $(which z3) ./z3
 
-              # Build verus trunk from source
-	      vargo build --release
+              # # Build verus trunk from source
+	      # vargo build --release
 
-              ## Verus binary global path
-	      set PATH "/home/mod/Documents/github/verus-tock/verus/source/target-verus/release/:$PATH"
+              # ## Verus binary global path
+	      # set PATH "/home/mod/Documents/github/verus-tock/verus/source/target-verus/release/:$PATH"
       '';
     };
   };
