@@ -37,8 +37,8 @@ rustdoc-args = ["--generate-link-to-definition"]
 [package.metadata.playground]
 features = ["verbatim"]
 
-[workspace]
-members = ["cargo-expand/update", "examples/update"]
+# [workspace]
+# members = ["cargo-expand/update", "examples/update"]
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = [
