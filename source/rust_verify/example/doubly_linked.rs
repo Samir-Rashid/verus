@@ -130,25 +130,60 @@ mod doubly_linked_list {
             );
 
             // TODO: left off with being unable to to iterator, need to switch to the for loop thing i < j. After that, need to change all of this to use Cells.
-            match self.head.iter().last() {
+            match self.head {
                 Some(last) => {
-                    // Get the next node from the 'next' field
+                    // // Get the next node from the 'next' field
+                    // let tracked pointsto_ref: &PointsTo<Node<V>> =
+                    //     self.ghost_state.borrow().points_to_map.tracked_borrow(j as nat);
+                    // let node_ref: &Node<V> = ptr.borrow(Tracked(pointsto_ref));
+                    // let next_ptr = node_ref.next.unwrap();
+
+                    // last.next.0 = new_end_ptr;
+                    /////////////////////////
+
+                    // Iterate the nodes from 0 to j, starting at the head node
+                    let mut j = 0;
+                    let mut ptr = self.head.unwrap();
+                    while j < i
+                        invariant
+                            self.well_formed(),
+                            0 <= j <= i < self@.len(),
+                            ptr == self.ghost_state@.ptrs[j as int],
+                    {
+                        proof {
+                            assert(self.well_formed_node(j as nat)); // trigger
+                        }
+
+                        // Get the next node from the 'next' field
+                        let tracked pointsto_ref: &PointsTo<Node<V>> =
+                            self.ghost_state.borrow().points_to_map.tracked_borrow(j as nat);
+                        let node_ref: &Node<V> = ptr.borrow(Tracked(pointsto_ref));
+                        let next_ptr = node_ref.next.unwrap();
+
+                        j += 1;
+                        ptr = next_ptr;
+                    }
+
+                    proof {
+                        assert(self.well_formed_node(j as nat)); // trigger
+                    }
+
+                    // Get a reference to this node's payload and return it
                     let tracked pointsto_ref: &PointsTo<Node<V>> =
                         self.ghost_state.borrow().points_to_map.tracked_borrow(j as nat);
                     let node_ref: &Node<V> = ptr.borrow(Tracked(pointsto_ref));
-                    let next_ptr = node_ref.next.unwrap();
+                    return &node_ref.payload;
 
-                    last.next.0 = new_end_ptr;
-                },
+                        },
 
-                None => {
-                    // idk how this case is triggered in the Tock code.
-                    // here we have no dummy, so ig this is empty case
-                    self.push_empty_case(v)
+                        None => {
+                            // idk how this case is triggered in the Tock code.
+                            // here we have no dummy, so ig this is empty case
+                            self.push_empty_case(v)
+                        }
+                    }
+
                 }
-            }
-
-        }
 
         // /// Take a value from the end of the list. Requires the list to be non-empty.
         // pub fn pop_back(&mut self) -> (v: V)
