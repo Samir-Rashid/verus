@@ -17,6 +17,6 @@ set PATH "/home/mod/Documents/github/verus-tock/verus/source/target-verus/releas
 cd ..
 
 # open verus-tock
-cd ..
+#cd ..
 code .
 
