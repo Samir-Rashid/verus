@@ -20,3 +20,7 @@ cd ..
 cd ..
 code .
 
+# also open 'cargo verus' folder
+cd capsules/core
+code .
+
